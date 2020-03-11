@@ -14,6 +14,28 @@ import imutils
 import time
 import dlib
 import cv2
+import smtplib,ssl
+def mail():
+        
+
+
+        smtp_server='smtp.gmail.com'
+        port=465
+
+        sender='drowsinessappkk@gmail.com'
+        password='loginkkr12'
+        receiver='krishn877@gmail.com'
+        message="Your XXXX is feeling sleepy give a call and ask if he is having any trouble"
+                    
+
+
+
+        context=ssl.create_default_context()
+
+        with smtplib.SMTP_SSL(smtp_server,port,context=context) as server:
+            server.login(sender,password)
+            server.sendmail(sender,receiver,message)
+            
 
 def sound_alarm(path):
 	# play an alarm sound
@@ -49,7 +71,7 @@ args = vars(ap.parse_args())
 # blink and then a second constant for the number of consecutive
 # frames the eye must be below the threshold for to set off the
 # alarm
-EYE_AR_THRESH = 0.3
+EYE_AR_THRESH = 0.2
 EYE_AR_CONSEC_FRAMES = 48
 
 # initialize the frame counter as well as a boolean used to
@@ -130,6 +152,7 @@ while True:
 							args=(args["alarm"],))
 						t.deamon = True
 						t.start()
+						mail()
 
 				# draw an alarm on the frame
 				cv2.putText(frame, "DROWSINESS ALERT!", (10, 30),
